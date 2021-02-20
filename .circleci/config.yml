@@ -1,0 +1,68 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.1.0
+jobs:
+  e2e:
+    # machine:
+    #  image: ubuntu-2004:202010-01
+    docker:
+      - image: mcr.microsoft.com/playwright:bionic
+    working_directory: ~/project
+    steps:
+    #- run:
+    #      name: install node
+    #      command: |
+    #        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    #        sudo apt install nodejs
+    - checkout:
+        path: ~/project
+    # - run:
+    #     name: Update npm globally
+    #     command: 'npm install -g npm@latest'
+    # server build:
+    - restore_cache:
+        key: dependency-cache_serverX3e-{{ checksum "./server/package-lock.json" }}
+
+    
+     - run:
+      command: cd ~/project/ui && cp .env.e2e.template .env && npm --prefix ~/project/ui
+
+     - run:
+       name: Server lint
+        command: npm --prefix ~/project/ui run lint && npm --prefix ~/project/ui run lint:fix
+    ui build
+    - restore_cache:
+        key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
+    - run:
+        name: Install UI npm
+        command: npm --prefix ~/project/ui install
+    - save_cache:
+        key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
+        paths:
+        - ~/project/ui/node_modules
+    - run:
+        name: Unit test UI
+        command: npm --prefix ~/project/ui test
+    # e2e execution:
+    # - restore_cache:
+    #     key: dependency-cache_e2eX3e-{{ checksum "./e2e/package-lock.json" }}
+    - run:
+        name: Install e2e npm
+        command: npm --prefix ~/project/e2e install
+    # - save_cache:
+    #     key: dependency-cache_e2eX3e-{{ checksum "./e2e/package-lock.json" }}
+    #     paths:
+    #     - ~/project/e2e/node_modules
+    - run:
+          name: e2e execution
+          command: |
+            npm --prefix ~/project/e2e run test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+    - hold:
+        type: approval
+    - e2e:
+        requires:
+          - hold
