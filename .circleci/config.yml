@@ -28,7 +28,7 @@ jobs:
     - save_cache:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
         paths:
-        - ~/project/server/node_modules
+        - ~/project/ui/node_modules
     # - run:
         # name: copy .env
         # command: cd ~/project/ui && cp .env.e2e.template .env
@@ -44,7 +44,7 @@ jobs:
         - ~/project/ui/node_modules
     - run:
         name: Unit test UI
-        command: npm --prefix ~/project/ui run ui
+        command: npm --prefix ~/project/ui start
     # e2e execution:
     # - restore_cache:
     #     key: dependency-cache_e2eX3e-{{ checksum "./e2e/package-lock.json" }}
