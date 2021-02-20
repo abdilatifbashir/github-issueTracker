@@ -21,18 +21,20 @@ jobs:
     #     command: 'npm install -g npm@latest'
     # server build:
     - restore_cache:
-        key: dependency-cache_serverX3e-{{ checksum "./server/package-lock.json" }}
-
-    
-    #  - run:
-    #   command: cd ~/project/ui && cp .env.e2e.template .env && npm --prefix ~/project/ui
-
-      # - run:
-        # name: Server lint
-    #     command: npm --prefix ~/project/ui run lint && npm --prefix ~/project/ui run lint:fix
+        key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
+    - run:
+        name: Install server npm
+        command: npm --prefix ~/project/server install
+    - save_cache:
+        key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
+        paths:
+        - ~/project/server/node_modules
+    - run:
+        name: copy .env
+        command: cd ~/project/server && cp .env.e2e.template .env
     # ui build
-    # - restore_cache:
-    #     key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
+    - restore_cache:
+        key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
     - run:
         name: Install UI npm
         command: npm --prefix ~/project/ui install
@@ -56,7 +58,7 @@ jobs:
     - run:
           name: e2e execution
           command: |
-            npm --prefix ~/project/e2e run test
+            npm --prefix ~/project/e2e run ui
 workflows:
   version: 2
   build_and_test:
