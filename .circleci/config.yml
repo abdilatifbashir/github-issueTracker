@@ -30,8 +30,8 @@ jobs:
         paths:
         - ~/project/server/node_modules
     - run:
-        name: copy .env
-        command: cd ~/project/ui && cp .env.e2e.template .env
+        # name: copy .env
+        # command: cd ~/project/ui && cp .env.e2e.template .env
     # ui build
     - restore_cache:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
