@@ -29,9 +29,9 @@ jobs:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
         paths:
         - ~/project/ui/node_modules
-    # - run:
-        # name: copy .env
-        # command: cd ~/project/ui && cp .env.e2e.template .env
+    - run:
+        name: copy .env
+        command: cd ~/project/ui && cp .env.e2e.template .env
     # ui build
     - restore_cache:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
