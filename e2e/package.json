@@ -1,0 +1,28 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx folio --param headful"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^0.180.0",
+    "@types/faker": "^5.1.5",
+    "@types/node": "^14.14.30",
+    "@types/typescript": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.8.1",
+    "start-server-and-test": "^1.11.6",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.5",
+    "wait-on": "^5.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "faker": "^5.4.0"
+  }
+}
