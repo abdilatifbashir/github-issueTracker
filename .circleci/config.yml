@@ -23,8 +23,8 @@ jobs:
     - restore_cache:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
     - run:
-        name: Install server npm
-        command: npm --prefix ~/project/server install
+        name: Install ui npm
+        command: npm --prefix ~/project/ui install
     - save_cache:
         key: dependency-cache_uiX3e-{{ checksum "./ui/package-lock.json" }}
         paths:
@@ -44,7 +44,7 @@ jobs:
         - ~/project/ui/node_modules
     - run:
         name: Unit test UI
-        command: npm --prefix ~/project/ui test
+        command: npm --prefix ~/project/ui run ui
     # e2e execution:
     # - restore_cache:
     #     key: dependency-cache_e2eX3e-{{ checksum "./e2e/package-lock.json" }}
@@ -58,7 +58,7 @@ jobs:
     - run:
           name: e2e execution
           command: |
-            npm --prefix ~/project/e2e run ui
+            npm --prefix ~/project/e2e run test
 workflows:
   version: 2
   build_and_test:
