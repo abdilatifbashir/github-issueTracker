@@ -5,7 +5,7 @@ export const useGqlQuery = (key:string,query:any,variables?:any,config={}) => {
     const endpoint = "https://api.github.com/graphql"
     const headers = {
         headers :{
-            authorization:"Bearer 1f7221842c93cfd7bb7f3d0c02f9b757409901d8"
+            authorization:"Bearer  fc09e6335db615a248243705517695e2d718cad5"
         }
     }
     const graphqlCient = new GraphQLClient(endpoint,headers)
