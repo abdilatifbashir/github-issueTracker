@@ -1,13 +1,13 @@
 import React from "react";
 import  { useEffect } from "react";
-
+import {Link} from "react-router-dom"
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-
 import { issueJson } from "./fixture";
 import { CardContainer } from "../styles/issue-card";
 import { filterGithubIssues } from "../service/filterHelper";
 import { setFilter} from "../store/actions/filterAction"
+
 
 const IssueCard: React.FC<any> = ({ card }) => {
   //get input variable from global state
@@ -16,7 +16,6 @@ const IssueCard: React.FC<any> = ({ card }) => {
   );
   // call filter service
   const filteredData = filterGithubIssues(card, repoInput);
-  console.log("filter repositories", filteredData);
 
   // set filtered issues in the store
   const dispatch = useDispatch();
@@ -28,15 +27,14 @@ const IssueCard: React.FC<any> = ({ card }) => {
 
   return (
     <CardContainer>
-      {/* {card?.map((issue:any,index:string) => { */}
       <Container>
         <Row>
           {filteredData?.map((issue: any, index: string) => {
             return (
-              <Col lg={4} key={index}>
+              <Col sm={12} md={6} lg={4} key={index}>
                 <div className="card">
                   <div className="card-header">
-                    <span>{index}</span> &nbsp;
+                    <span>{index + 1}</span> &nbsp;
                     <span>
                       <a href={issue.url}>
                         ISSUE: {issue.title.split(" ", 3).join(" ")}...
@@ -53,14 +51,14 @@ const IssueCard: React.FC<any> = ({ card }) => {
                         {issue.state.toLowerCase()}
                       </span>
                     ) : (
-                      <span className="state-closed">{issue.state}</span>
+                      <span className="state-closed">{issue.state.toLowerCase()}</span>
                     )}
                     <hr style={{ marginRight: "40px" }} />
 
                     <span className="comments">
                       comments:{issue.comments.edges.length}
                     </span>
-                    <span className="more">More details...</span>
+                    <span className="more"><Link to={`/more-details/${issue.id}`}>More details...</Link></span>
                   </div>
                 </div>
                 <br />
