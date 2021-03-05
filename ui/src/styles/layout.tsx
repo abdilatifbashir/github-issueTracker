@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const LayoutContainer = styled.div`
 .app-title{
-    margin-top:40px;
+    margin-top:25px;
     h1{
         text-align:center;
     }

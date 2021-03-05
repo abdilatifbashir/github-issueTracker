@@ -1,0 +1,6 @@
+node_modules/
+ui/.env
+e2e/.env
+.env
+yarn.lock
+yarn-error.log

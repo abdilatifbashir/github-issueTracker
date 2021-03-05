@@ -33,7 +33,7 @@ span:nth-child(2){
 p{
     margin-left:80px;
     a{
-        color:5FF180;
+        color:#D9D9CC;
         font-family: Lato;
 font-style: normal;
 font-weight: bold;
