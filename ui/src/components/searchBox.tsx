@@ -1,6 +1,6 @@
 import React from "react"
 import  { useState, useEffect } from "react";
-
+import { Container, Row, Col } from "react-bootstrap";
 import { SearchContainer } from "../styles/search";
 import { setRepo } from "../store/actions/repoActions"
 import { useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ const SearchBox:React.FC = () => {
 return <SearchContainer>
     <div className="search">
 
-        <input type="text" name=""  placeholder="search repository" onChange = {(e)=>setRepoName(e.target.value)}/>
+        <input type="text" name=""  placeholder="Search Repository | Issue" onChange = {(e)=>setRepoName(e.target.value)}/>
     </div>
     </SearchContainer>
     

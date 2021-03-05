@@ -19,6 +19,7 @@ const githubData = gql`
           title
           url
           closedAt
+          createdAt
           state
           comments(first: 5) {
             edges {
@@ -55,8 +56,7 @@ const githubData = gql`
 
 const Layout: React.FC = () => {
   const { data, isLoading, error } = useGqlQuery("issueData", githubData);
-  console.log("github data", data);
- 
+
   const issuesData = data?.viewer.issues.nodes;
   const dispatch = useDispatch();
   useEffect(() => {
@@ -70,7 +70,6 @@ const Layout: React.FC = () => {
 
   return (
     <LayoutContainer>
-      <Menu />
       <div className="app-title">
         <h1>Github Issue tracker</h1>
       </div>
@@ -78,8 +77,10 @@ const Layout: React.FC = () => {
       <div className="issues-found">
         {filteredIssues?.length > 0 ? (
           <p>{filteredIssues.length} issues found </p>
+        ) : isLoading ? (
+          <p>Issues Loading </p>
         ) : (
-          <p>No issues or repo matches</p>
+          <p>No issues or repo matches </p>
         )}
       </div>
       <IssueCard card={issuesData} />
